@@ -1,6 +1,7 @@
 # Levo-API
  An app built with Ruby on Rails to connect Truck Drivers and Manager
 
+See the project running on [Heroku](https://epturc-levo.herokuapp.com/api/v1/drivers)
 
 ## Setting Up the Environment
 
