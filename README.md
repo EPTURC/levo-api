@@ -6,7 +6,7 @@ See the project running on [Heroku](https://epturc-levo.herokuapp.com/api/v1/dri
 ## Setting Up the Environment
 
 
-First up, your system will need the [prerequisites for running Ruby on Rails installed](https://rubyonrails.org/)
+First up, your system will need the [prerequisites for running Ruby on Rails installed](https://rubyonrails.org/) and [PostgresSQL](https://www.postgresql.org/)
 
 Once you have these:
 
@@ -22,6 +22,13 @@ $ cd levo-api
 $ gem install bundler
 
 $ bundle install
+
+# Create the local database
+
+With psql, run: 
+
+$ psql
+$ CREATE DATABASE levo_development;
 
 # Run the project
 
