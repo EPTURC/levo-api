@@ -34,6 +34,10 @@ $ CREATE DATABASE levo_development;
 
 $ rails db:migrate
 
+# Populate the database with test data
+
+$ rake db:seed
+
 # Run the project
 
 $ rails s
