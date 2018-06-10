@@ -30,6 +30,10 @@ With psql, run:
 $ psql
 $ CREATE DATABASE levo_development;
 
+# Run the project migrations
+
+$ rails db:migrate
+
 # Run the project
 
 $ rails s
