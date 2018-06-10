@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   #mount Rswag::Api::Engine => '/api-docs'
   namespace :api do
     namespace :v1 do
-    resources :drivers
+      resources :drivers, defaults: {format: :json} 
+      resources :vehicles, defaults: {format: :json} do
+        resources :locations
+      end
     end
   end
 end
