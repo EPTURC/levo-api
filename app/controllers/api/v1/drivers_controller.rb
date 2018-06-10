@@ -46,6 +46,6 @@ class Api::V1::DriversController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def driver_params
-      params.fetch(:driver, {})
+      params.required(:driver).permit(:user_id)
     end
 end
