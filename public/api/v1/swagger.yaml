@@ -1,0 +1,23 @@
+swagger: '2.0'
+info:
+  description: |
+    This is a levo api documentation.
+  version: '1.0.0'
+  title: Levo api
+basePath: "/api/v1/"
+paths:
+  /drivers:
+    get:
+      description: "Returns all drivers"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "A list of drivers"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Driver"
+definitions:
+  Driver:
+    $ref: "definitions/driver.yaml"
