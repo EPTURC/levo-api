@@ -2,6 +2,6 @@ class Location < ApplicationRecord
   belongs_to :vehicle
 
   def as_json(options={})
-    super(:only => [:latitude, :longitude])
+    super(:only => [:latitude, :longitude, :created_at])
   end
 end
