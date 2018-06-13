@@ -3,15 +3,16 @@ class Api::V1::VehiclesController < ApplicationController
 
   # GET /api/v1/vehicles
   def index
-    @vehicles = Vehicle.all
-
-    render json: @vehicles
+    @vehicles = Vehicle.all.includes(:locations)
+    
+    render json: @vehicles 
   end
 
   # GET /api/v1/vehicles/1
   def show
     render json: @vehicle
   end
+
 
   # POST /api/v1/vehicles
   def create
