@@ -1,0 +1,18 @@
+title: Vehicle
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  company_id:
+    type: string
+  created_at:
+    type: timestamp
+    format: date-time
+    example: 1995-09-07T10:40:52Z
+  updated_at:
+    type: timestamp
+    format: date-time
+    example: 1995-09-07T10:40:52
+xml:
+  name: Vehicle

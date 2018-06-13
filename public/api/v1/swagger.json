@@ -1,64 +1,164 @@
 {
   "swagger": "2.0",
   "info": {
-      "version": "v1",
-      "title": "API V1"
+    "version": "v1",
+    "title": "API V1"
   },
-  "basePath": "/",
+  "basePath": "/api/v1/",
+  "schemes": "http",
   "paths": {
-      "/api/Todo": {
-          "get": {
-              "tags": [
-                  "Todo"
-              ],
-              "operationId": "ApiTodoGet",
-              "consumes": [],
-              "produces": [
-                  "text/plain",
-                  "application/json",
-                  "text/json"
-              ],
-              "responses": {
-                  "200": {
-                      "description": "Success",
-                      "schema": {
-                          "type": "array",
-                          "items": {
-                              "$ref": "#/definitions/TodoItem"
-                          }
-                      }
-                  }
-               }
-          },
-          "post": {
-          }
-      },
-      "/api/Todo/{id}": {
-          "get": {
-          },
-          "put": {
-          },
-          "delete": {
+    "/drivers/": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Driver"
+              }
+            }
           }
         }
       },
-  "definitions": {
-      "TodoItem": {
-          "type": "object",
-           "properties": {
-               "id": {
-                   "format": "int64",
-                   "type": "integer"
-               },
-               "name": {
-                   "type": "string"
-               },
-               "isComplete": {
-                   "default": false,
-                   "type": "boolean"
-               }
-           }
+      "post": {
+        "summary": "ADd a driver",
+        "consumes": "application/x-www-form-urlencoded",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Driver"
+            }
+          }
+        }
       }
+    },
+    "/drivers/{id}": {
+      "get": {
+        "parameters": {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64",
+          "minimum": 1
+        },
+        "produces": "application/json",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Driver"
+            }
+          }
+        }
+      },
+      "put": {},
+      "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/vehicles/": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Vehicle"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Driver": {
+      "type": "object",
+      "required": "user_id",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "name": "dateTime",
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "name": "dateTime",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Vehicle": {
+      "type": "object",
+      "required":"company_id",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "company_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "name": "dateTime",
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "name": "dateTime",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
   },
   "securityDefinitions": {}
 }

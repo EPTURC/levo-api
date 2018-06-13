@@ -26,8 +26,7 @@ paths:
         - application/json
       parameters:
         - name: body
-          in: body
-          required: true
+          in: path
           schema:
             # Body schema with atomic property examples
             type: object
@@ -41,7 +40,7 @@ paths:
       description: Returns one driver
       parameters:
         - name: id
-          in: integer
+          in: path
           require: true
           description: Desired driver id
           schema:
@@ -60,15 +59,53 @@ paths:
       description: Delete one driver
       parameters:
         - name: id
-          in: integer
+          in: path
           require: true
           description: Desired driver id
           schema:
             type: integer
             format: int64
             minimum: 1
+  /vehicles/:
+    get:
+      summary: Returns a list of all vehicles
+      description: gets all vehicles's info
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of vehicles
+          schema:
+            type: array
+            items:
+          $ref: '#/definitions/Vehicle'
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: vehicle
+          in: path
+          required: true
+          schema:
+            # Body schema with atomic property examples
+            type: object
+            properties:
+              vehicle:
+                type: object
+                properties:
+                  company_id:
+                    type: string
+                    example: kkkk8
+            # Alternatively, we can use a schema-level example
+            example:
+              vehicle:
+                company_id: kajsdkasj
 definitions:
   Driver:
     $ref: 'definitions/driver.yaml'
   DriverBody:
     $ref: 'definitions/driverBody.yaml'
+  Vehicle:
+    $ref: 'definitions/vehicle.yaml'
