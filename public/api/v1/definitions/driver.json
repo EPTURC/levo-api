@@ -1,0 +1,20 @@
+{
+    "title":"Driver",
+    "type":"object",
+    "properties":{
+        "user_id":{
+            "type": "int",
+            "format": "int64"
+        },
+        "created_at":{
+            "type": "timestamp",
+            "format": "date-time",
+            "example": "1995-09-07T10:40:52Z"
+        },
+        "updated_at":{
+            "type": "timestamp",
+            "format": "date-time",
+            "example": "1995-09-07T10:40:52Z"
+        }
+    } 
+}

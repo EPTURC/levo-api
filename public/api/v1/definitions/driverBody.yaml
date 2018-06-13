@@ -1,0 +1,9 @@
+title: DriverBody
+type: object
+properties:
+  user_id:
+    type: integer
+    format: int64
+    required: true
+xml:
+  name: DriverBody

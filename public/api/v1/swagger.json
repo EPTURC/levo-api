@@ -1,4 +1,9 @@
-swagger: '2.0'
+{
+    "title":"Levo api",
+    "version":"1.0.0",
+    "description":"This is a levo api documentation",
+    
+}
 info:
   description: |
     This is a levo api documentation.
@@ -18,23 +23,7 @@ paths:
           schema:
             type: array
             items:
-          $ref: '#/definitions/Driver'
-    post:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            # Body schema with atomic property examples
-            type: object
-            properties:
-              user_id:
-                type: integer
-                format: int64
+              $ref: '#/definitions/Driver'
   /drivers/{id}:
     get:
       summary: Return a user by ID
@@ -67,8 +56,12 @@ paths:
             type: integer
             format: int64
             minimum: 1
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Delete a especific driver
+          content: OK
 definitions:
   Driver:
     $ref: 'definitions/driver.yaml'
-  DriverBody:
-    $ref: 'definitions/driverBody.yaml'
