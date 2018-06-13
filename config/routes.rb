@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :vehicles, defaults: {format: :json} do
         resources :locations
       end
+      resources :users, defaults: { format: :json }
     end
   end
 end

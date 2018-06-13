@@ -11,3 +11,4 @@ Driver.create([{ user_id: 4 }, { user_id: 5 }])
 Vehicle.create([{ company_id: 'HHT-01'}, {company_id: 'Horch-01' } ])
 Location.create([{ vehicle_id: 1, latitude: '-5.830272', longitude: '-35.201803' },
                 {vehicle_id: 2, latitude: '-5.812057', longitude: '-35.20714' }])
+
