@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       end
       resources :users, defaults: { format: :json }
 
-      get '/vehicles/company_id/:name', to: 'vehicles#vehicle_name', as: 'vehicle_name'
+      get '/vehicles/search/:name', to: 'vehicles#search_by_company_id', as: 'search_by_company_id'
     end
   end
 end

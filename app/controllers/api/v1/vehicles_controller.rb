@@ -40,11 +40,11 @@ class Api::V1::VehiclesController < ApplicationController
     @vehicle.destroy
   end
 
-  def vehicle_name
-    @vehicle = Vehicle.find_by('lower(company_id)=?', params[:name].downcase)
+  def search_by_company_id
+    @vehicle = Vehicle.find_by('lower(company_id) ILIKE ?', "%" + params[:name].downcase+"%")
     
     if @vehicle
-      render json: @vehicle.id
+      render json: @vehicle
     else
       render json: { error: "Not found" }, status: :not_found
     end
