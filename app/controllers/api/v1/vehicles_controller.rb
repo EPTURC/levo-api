@@ -40,6 +40,7 @@ class Api::V1::VehiclesController < ApplicationController
     @vehicle.destroy
   end
 
+  api :GET, "vehicles/search/:company_id", "Find a vehicle by his company_id"
   def search_by_company_id
     @vehicle = Vehicle.find_by('lower(company_id) ILIKE ?', "%" + params[:name].downcase+"%")
     
