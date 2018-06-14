@@ -7,6 +7,8 @@ Rails.application.routes.draw do
         resources :locations
       end
       resources :users, defaults: { format: :json }
+
+      get '/vehicles/search/:name', to: 'vehicles#search_by_company_id', as: 'search_by_company_id'
     end
   end
 end

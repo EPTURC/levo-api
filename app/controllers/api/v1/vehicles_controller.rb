@@ -40,6 +40,16 @@ class Api::V1::VehiclesController < ApplicationController
     @vehicle.destroy
   end
 
+  def search_by_company_id
+    @vehicle = Vehicle.find_by('lower(company_id) ILIKE ?', "%" + params[:name].downcase+"%")
+    
+    if @vehicle
+      render json: @vehicle
+    else
+      render json: { error: "Not found" }, status: :not_found
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vehicle
