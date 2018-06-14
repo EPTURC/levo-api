@@ -1,20 +1,19 @@
 class Api::V1::VehiclesController < ApplicationController
   before_action :set_vehicle, only: [:show, :update, :destroy]
-
-  # GET /api/v1/vehicles
+  
+  api :GET, "vehicles", "Show all vehicles"
   def index
     @vehicles = Vehicle.all.includes(:locations)
     
     render json: @vehicles 
   end
 
-  # GET /api/v1/vehicles/1
+  api :GET, "vehicles/:id", "Show a vehicle details"
   def show
     render json: @vehicle
   end
 
-
-  # POST /api/v1/vehicles
+  api :POST, "vehicles", "Create a vehicle"
   def create
     @vehicle = Vehicle.new(vehicle_params)
 
@@ -25,6 +24,7 @@ class Api::V1::VehiclesController < ApplicationController
     end
   end
 
+  api :PUT, "vehicles/:id", "Edit a vehicle"
   # PATCH/PUT /api/v1/vehicles/1
   def update
     if @vehicle.update(vehicle_params)
@@ -34,6 +34,7 @@ class Api::V1::VehiclesController < ApplicationController
     end
   end
 
+  api :DELETE, "vehicles/:id", "Delete a vehicle"
   # DELETE /api/v1/vehicles/1
   def destroy
     @vehicle.destroy

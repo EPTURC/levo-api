@@ -1,19 +1,19 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-
-  # GET /api/v1/users
+  
+  api :GET, "users", "Show all users"
   def index
     @users = User.all
 
     render json: @users
   end
 
-  # GET /api/v1/users/1
+  api :GET, "users/:id", "Show a user details"
   def show
     render json: @user
   end
 
-  # POST /api/v1/users
+  api :POST, "users", "Create a user"
   def create
     @user = User.new(user_params)
 
@@ -24,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/v1/users/1
+  api :PUT, "users/:id", "Edit a user"
   def update
     if @user.update(user_params)
       render json: @user
@@ -33,7 +33,7 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  # DELETE /api/v1/users/1
+  api :DELETE, "users/:id", "Delete a user"
   def destroy
     @user.destroy
   end
