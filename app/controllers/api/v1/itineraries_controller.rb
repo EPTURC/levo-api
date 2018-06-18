@@ -1,19 +1,19 @@
 class Api::V1::ItinerariesController < ApplicationController
   before_action :set_itinerary, only: [:show, :update, :destroy]
 
-  # GET /itineraries
+  api :GET, "itineraries", "Show all itineraries"
   def index
     @itineraries = Itinerary.all
 
     render json: @itineraries
   end
 
-  # GET /itineraries/1
+  api :GET, "itineraries/:id", "Show a itinerary details"
   def show
     render json: @itinerary
   end
 
-  # POST /itineraries
+  api :POST, "itineraries", "Create a itinerary"
   def create
     @itinerary = Itinerary.new(itinerary_params)
 
@@ -24,7 +24,7 @@ class Api::V1::ItinerariesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /itineraries/1
+  api :PUT, "itineraries/:id", "Edit a itinerary"
   def update
     if @itinerary.update(itinerary_params)
       render json: @itinerary
@@ -33,7 +33,7 @@ class Api::V1::ItinerariesController < ApplicationController
     end
   end
 
-  # DELETE /itineraries/1
+  api :DELETE, "itinerary/:id", "Delete a itinerary"
   def destroy
     @itinerary.destroy
   end

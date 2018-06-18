@@ -1,19 +1,19 @@
 class Api::V1::TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
 
-  # GET /tasks
+  api :GET, "tasks", "Show all tasks"
   def index
     @tasks = Task.all
 
     render json: @tasks
   end
 
-  # GET /tasks/1
+  api :GET, "tasks/:id", "Show a task details"
   def show
     render json: @task
   end
 
-  # POST /tasks
+  api :POST, "tasks", "Create a task"
   def create
     @task = Task.new(task_params)
 
@@ -24,7 +24,7 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tasks/1
+  api :PUT, "tasks/:id", "Edit a task"
   def update
     if @task.update(task_params)
       render json: @task
@@ -33,7 +33,7 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
-  # DELETE /tasks/1
+  api :DELETE, "tasks/:id", "Delete a task"
   def destroy
     @task.destroy
   end
