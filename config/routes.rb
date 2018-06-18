@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   apipie
   namespace :api do
     namespace :v1 do
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
         resources :locations
       end
       resources :users, defaults: { format: :json }
-
+      resources :itineraries
       get '/vehicles/search/:name', to: 'vehicles#search_by_company_id', as: 'search_by_company_id'
     end
   end

@@ -12,4 +12,4 @@ Vehicle.create([{ company_id: 'HHT-01', driver_id: Driver.first.id }, {company_i
 Location.create([{ vehicle_id: Vehicle.first.id , latitude: '-5.830272', longitude: '-35.201803' },
                 {vehicle_id: Vehicle.second.id, latitude: '-5.812057', longitude: '-35.20714' },
                 {vehicle_id: Vehicle.second.id, latitude: '-5.812059', longitude: '-35.20714' }])
-
+Itinerary.create([ {driver_id: Driver.first.id, vehicle_id: Vehicle.first.id }, {driver_id: Driver.second.id, vehicle_id: Vehicle.second.id }])
