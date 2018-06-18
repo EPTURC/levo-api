@@ -19,7 +19,7 @@ class Api::V1::LocationsController < ApplicationController
     @location.vehicle = @vehicle
 
     if @location.save
-      render json: @location, status: :created, location: api_v1_vehicle_location_url(@vehicle, @location)
+      render json: @location, status: :created
     else
       render json: @location.errors, status: :unprocessable_entity
     end

@@ -18,7 +18,7 @@ class Api::V1::VehiclesController < ApplicationController
     @vehicle = Vehicle.new(vehicle_params)
 
     if @vehicle.save
-      render json: @vehicle, status: :created, location: @vehicle
+      render json: @vehicle, status: :created
     else
       render json: @vehicle.errors, status: :unprocessable_entity
     end

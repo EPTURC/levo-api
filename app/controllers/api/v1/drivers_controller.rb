@@ -18,7 +18,7 @@ class Api::V1::DriversController < ApplicationController
     @driver = Driver.new(driver_params)
 
     if @driver.save
-      render json: @driver, status: :created, location: @driver
+      render json: @driver, status: :created
     else
       render json: @driver.errors, status: :unprocessable_entity
     end
