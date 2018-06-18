@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_18_232823) do
+ActiveRecord::Schema.define(version: 2018_06_18_233809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(version: 2018_06_18_232823) do
     t.index ["vehicle_id"], name: "index_itineraries_on_vehicle_id"
   end
 
+  create_table "itinerary_items", force: :cascade do |t|
+    t.bigint "itinerary_id"
+    t.integer "index"
+    t.boolean "done"
+    t.bigint "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["itinerary_id"], name: "index_itinerary_items_on_itinerary_id"
+    t.index ["task_id"], name: "index_itinerary_items_on_task_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.bigint "vehicle_id"
     t.string "latitude"
@@ -38,6 +49,13 @@ ActiveRecord::Schema.define(version: 2018_06_18_232823) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["vehicle_id"], name: "index_locations_on_vehicle_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "object"
+    t.string "responsible_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,6 +75,8 @@ ActiveRecord::Schema.define(version: 2018_06_18_232823) do
   add_foreign_key "drivers", "users"
   add_foreign_key "itineraries", "drivers"
   add_foreign_key "itineraries", "vehicles"
+  add_foreign_key "itinerary_items", "itineraries"
+  add_foreign_key "itinerary_items", "tasks"
   add_foreign_key "locations", "vehicles"
   add_foreign_key "vehicles", "drivers"
 end

@@ -14,3 +14,5 @@ Location.create([{ vehicle_id: Vehicle.first.id , latitude: '-5.830272', longitu
                 {vehicle_id: Vehicle.second.id, latitude: '-5.812059', longitude: '-35.20714' }])
 Itinerary.create([ {driver_id: Driver.first.id, vehicle_id: Vehicle.first.id }, {driver_id: Driver.second.id, vehicle_id: Vehicle.second.id }])
 Task.create([ {object: "Caderno sem capas", responsible_name: "Maria" }, { object: "Móvel 10kg", responsible_name: "João"} ])
+ItineraryItem.create([ { itinerary_id: Itinerary.first.id, index: 1, done: false, task_id: Task.first.id },
+                        { itinerary_id: Itinerary.first.id, index: 2, done: false, task_id: Task.second.id } ])

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :users, defaults: { format: :json }
       resources :itineraries
       resources :tasks
+      resources :itinerary_items
       get '/vehicles/search/:name', to: 'vehicles#search_by_company_id', as: 'search_by_company_id'
     end
   end
