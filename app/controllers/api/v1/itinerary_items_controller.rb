@@ -1,9 +1,10 @@
 class Api::V1::ItineraryItemsController < ApplicationController
+  before_action :set_itinerary
   before_action :set_itinerary_item, only: [:show, :update, :destroy]
-
+  
   api :GET, "itinerary_items", "Show all itinerary items"
   def index
-    @itinerary_items = ItineraryItem.all
+    @itinerary_items = @itinerary.itinerary_items.order('index')
 
     render json: @itinerary_items
   end
@@ -41,7 +42,11 @@ class Api::V1::ItineraryItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_itinerary_item
-      @itinerary_item = ItineraryItem.find(params[:id])
+      @itinerary_item = @itinerary.itinerary_items.find(params[:id])
+    end
+
+    def set_itinerary
+      @itinerary = Itinerary.find(params[:itinerary_id])
     end
 
     # Only allow a trusted parameter "white list" through.

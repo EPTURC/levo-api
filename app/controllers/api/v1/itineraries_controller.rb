@@ -8,9 +8,9 @@ class Api::V1::ItinerariesController < ApplicationController
     render json: @itineraries
   end
 
-  api :GET, "itineraries/:id", "Show a itinerary details"
+  api :GET, "itineraries/:id", "Show a itinerary details with his items included, ordered by index"
   def show
-    render json: @itinerary
+    render json: @itinerary.as_json(:include => { items: { only: [:task_id, :index, :done] }})
   end
 
   api :POST, "itineraries", "Create a itinerary"
@@ -36,6 +36,16 @@ class Api::V1::ItinerariesController < ApplicationController
   api :DELETE, "itinerary/:id", "Delete a itinerary"
   def destroy
     @itinerary.destroy
+  end
+
+  api :GET, "itinerary/driver/:driver", "Find and show a active itinerary by driver with his items included, ordered by index"
+  def show_by_driver
+    @driver_itinerary = Itinerary.where("status = 'ativo' AND driver_id = ?", params[:driver]).take
+    if @driver_itinerary
+      render json: @driver_itinerary.as_json(:include => { items: { only: [:task_id, :index, :done] }})
+    else
+      render json: '{"error": "not_found"}', status: :not_found
+    end
   end
 
   private
