@@ -38,11 +38,17 @@ class Api::V1::ItinerariesController < ApplicationController
     @itinerary.destroy
   end
 
-  api :GET, "itinerary/driver/:driver", "Find and show a active itinerary by driver with his items included, ordered by index"
+  api :GET, "itinerary/driver/:driver", "Find and show a active itinerary by driver with his items and vehicle included, ordered by index"
   def show_by_driver
     @driver_itinerary = Itinerary.where("status = 'ativo' AND driver_id = ?", params[:driver]).take
     if @driver_itinerary
-      render json: @driver_itinerary.as_json(:include => { items: { only: [:task_id, :index, :done] }})
+      render json: 
+        @driver_itinerary.as_json(only: [:id, :status], :include => [
+                            { vehicle: { only: [:id, :company_id ]}}, 
+                            { items: { only: [:index, :done, :id], 
+                              :include => { task: 
+                                { only: [:object, :responsible_name, :type, :local ]} } }
+                            }])
     else
       render json: '{"error": "not_found"}', status: :not_found
     end
