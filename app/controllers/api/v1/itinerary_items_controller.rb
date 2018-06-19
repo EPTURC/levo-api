@@ -2,19 +2,30 @@ class Api::V1::ItineraryItemsController < ApplicationController
   before_action :set_itinerary
   before_action :set_itinerary_item, only: [:show, :update, :destroy]
   
-  api :GET, "itinerary/:itinerary_id/itinerary_items", "Show all itinerary items"
+
+  def_param_group :itinerary_item do
+    param :itinerary_id, Fixnum, :desc => "Itinerary ID"
+    param :index, Fixnum, :desc => "Index"
+    param :task_id, Fixnum, :desc => "Task ID"
+    param :done, [true, false, "true", "false"], :desc => "Done"
+  end
+
+  param_group :itinerary_item
+  api :GET, "itineraries/:itinerary_id/itinerary_items", "Show all itinerary items"
   def index
     @itinerary_items = @itinerary.itinerary_items.order('index')
 
     render json: @itinerary_items
   end
 
-  api :GET, "itinerary/:itinerary_id/itinerary_items/:id", "Show a itinerary item details"
+  param_group :itinerary_item
+  api :GET, "itineraries/:itinerary_id/itinerary_items/:id", "Show a itinerary item details"
   def show
     render json: @itinerary_item
   end
 
-  api :POST, "itinerary/:itinerary_id/itinerary_items", "Create a itinerary item"
+  param_group :itinerary_item
+  api :POST, "itineraries/:itinerary_id/itinerary_items", "Create a itinerary item"
   def create
     @itinerary_item = ItineraryItem.new(itinerary_item_params)
 
@@ -25,7 +36,8 @@ class Api::V1::ItineraryItemsController < ApplicationController
     end
   end
 
-  api :PUT, "itinerary/:itinerary_id/itinerary_items/:id", "Edit a itinerary item"
+  param_group :itinerary_item
+  api :PUT, "itineraries/:itinerary_id/itinerary_items/:id", "Edit a itinerary item"
   def update
     if @itinerary_item.update(itinerary_item_params)
       render json: @itinerary_item
@@ -34,7 +46,7 @@ class Api::V1::ItineraryItemsController < ApplicationController
     end
   end
 
-  api :DELETE, "itinerary/:itinerary_id/itinerary_items/:id", "Delete a itinerary item"
+  api :DELETE, "itineraries/:itinerary_id/itinerary_items/:id", "Delete a itinerary item"
   def destroy
     @itinerary_item.destroy
   end

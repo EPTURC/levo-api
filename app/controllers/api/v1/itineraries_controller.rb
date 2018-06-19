@@ -1,6 +1,25 @@
 class Api::V1::ItinerariesController < ApplicationController
   before_action :set_itinerary, only: [:show, :update, :destroy]
 
+  resource_description do
+    short 'Itinerários'
+    formats ['json']
+  end
+
+  def_param_group :itinerary do
+    param :vehicle_id, Fixnum, :desc => "Vehicle ID"
+    param :driver_id, Fixnum, :desc => "Driver ID"
+    param :status, ["ativo", "inativo"], :desc => "Status"
+  end
+
+  def_param_group :driver_itinerary do
+    param :vehicle_id, Fixnum, :desc => "Vehicle ID"
+    param :driver_id, Fixnum, :desc => "Driver ID"
+    param :status, String, :desc => "Status"
+    param :items, Object, :desc => "Items"
+  end
+
+  param_group :itinerary
   api :GET, "itineraries", "Show all itineraries"
   def index
     @itineraries = Itinerary.all
@@ -8,11 +27,13 @@ class Api::V1::ItinerariesController < ApplicationController
     render json: @itineraries
   end
 
+  param_group :itinerary
   api :GET, "itineraries/:id", "Show a itinerary details with his items included, ordered by index"
   def show
     render json: @itinerary.as_json(:include => { items: { only: [:task_id, :index, :done] }})
   end
 
+  param_group :itinerary
   api :POST, "itineraries", "Create a itinerary"
   def create
     @itinerary = Itinerary.new(itinerary_params)
@@ -24,6 +45,7 @@ class Api::V1::ItinerariesController < ApplicationController
     end
   end
 
+  param_group :itinerary
   api :PUT, "itineraries/:id", "Edit a itinerary"
   def update
     if @itinerary.update(itinerary_params)
@@ -33,12 +55,13 @@ class Api::V1::ItinerariesController < ApplicationController
     end
   end
 
-  api :DELETE, "itinerary/:id", "Delete a itinerary"
+  api :DELETE, "itineraries/:id", "Delete a itinerary"
   def destroy
     @itinerary.destroy
   end
 
-  api :GET, "itinerary/driver/:driver", "Find and show a active itinerary by driver with his items and vehicle included, ordered by index"
+  param_group :driver_itinerary
+  api :GET, "itineraries/driver/:driver", "Find and show a active itinerary by driver with his items and vehicle included, ordered by index"
   def show_by_driver
     @driver_itinerary = Itinerary.where("status = 'ativo' AND driver_id = ?", params[:driver]).take
     if @driver_itinerary

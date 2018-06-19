@@ -9,6 +9,4 @@ class Itinerary < ApplicationRecord
   def items
     self.itinerary_items.order('index')
   end
-
-
 end

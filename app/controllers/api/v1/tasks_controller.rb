@@ -1,6 +1,14 @@
 class Api::V1::TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
 
+  def_param_group :task do
+    param :object, String, :desc => "Object description"
+    param :responsible_name, String, :desc => "Responsible Name"
+    param :type, ["Entrega", "Coleta"], :desc => "Status"
+    param :local, String, :desc => "Local"
+  end
+
+  param_group :task
   api :GET, "tasks", "Show all tasks"
   def index
     @tasks = Task.all
@@ -8,11 +16,13 @@ class Api::V1::TasksController < ApplicationController
     render json: @tasks
   end
 
+  param_group :task
   api :GET, "tasks/:id", "Show a task details"
   def show
     render json: @task
   end
 
+  param_group :task
   api :POST, "tasks", "Create a task"
   def create
     @task = Task.new(task_params)
@@ -24,6 +34,7 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  param_group :task
   api :PUT, "tasks/:id", "Edit a task"
   def update
     if @task.update(task_params)
