@@ -11,8 +11,30 @@ class Vehicle < ApplicationRecord
     end
 
     def is_stopped
-      #to-do: calculate distance between last locations
+      last = self.locations.last(3)
+      v1 = last[0]
+      v2 = last[1]
+      v3 = last[2]
+      if (v2.nil? && v3.nil?)
+        true
+      elsif (v3.nil?)
+        if (dist(v1, v2) < 1)
+          true
+        else
+          false
+        end
+      else
+        if (dist(v1, v2) < 1 && dist(v1, v3) < 1 && dist(v2, v3) < 1)
+          true
+        else
+          false
+        end
       false
+      end
+    end
+
+    def dist(v1, v2)
+      Math.sqrt((v1.latitude.to_d - v2.latitude.to_d) ** 2 + (v1.longitude.to_d - v2.longitude.to_d) ** 2)
     end
 
     def status
