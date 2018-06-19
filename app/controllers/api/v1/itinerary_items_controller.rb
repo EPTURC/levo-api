@@ -4,13 +4,12 @@ class Api::V1::ItineraryItemsController < ApplicationController
   
 
   def_param_group :itinerary_item do
-    param :itinerary_id, Fixnum, :desc => "Itinerary ID"
     param :index, Fixnum, :desc => "Index"
     param :task_id, Fixnum, :desc => "Task ID"
     param :done, [true, false, "true", "false"], :desc => "Done"
   end
 
-  param_group :itinerary_item
+
   api :GET, "itineraries/:itinerary_id/itinerary_items", "Show all itinerary items"
   def index
     @itinerary_items = @itinerary.itinerary_items.order('index')
@@ -24,11 +23,11 @@ class Api::V1::ItineraryItemsController < ApplicationController
     render json: @itinerary_item
   end
 
-  param_group :itinerary_item
+
   api :POST, "itineraries/:itinerary_id/itinerary_items", "Create a itinerary item"
   def create
     @itinerary_item = ItineraryItem.new(itinerary_item_params)
-
+    @itinerary_item.itinerary = @itinerary
     if @itinerary_item.save
       render json: @itinerary_item, status: :created
     else
