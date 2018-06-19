@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :itineraries
       resources :tasks
       resources :itinerary_items
-      get '/vehicles/search/:name', to: 'vehicles#search_by_company_id', as: 'search_by_company_id'
+      get '/vehicles/company_id/:company_id', to: 'vehicles#show_by_company_id', as: 'show_by_company_id'
     end
   end
 end

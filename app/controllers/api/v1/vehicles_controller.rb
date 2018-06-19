@@ -40,9 +40,9 @@ class Api::V1::VehiclesController < ApplicationController
     @vehicle.destroy
   end
 
-  api :GET, "vehicles/search/:company_id", "Find a vehicle by his company_id"
-  def search_by_company_id
-    @vehicle = Vehicle.find_by('lower(company_id) ILIKE ?', "%" + params[:name].downcase+"%")
+  api :GET, "vehicles/company_id/:company_id", "Find a vehicle by his company_id"
+  def show_by_company_id
+    @vehicle = Vehicle.find_by('lower(company_id) ILIKE ?', "%" + params[:company_id].downcase+"%")
     
     if @vehicle
       render json: @vehicle
