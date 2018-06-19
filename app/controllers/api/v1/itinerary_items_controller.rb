@@ -2,19 +2,19 @@ class Api::V1::ItineraryItemsController < ApplicationController
   before_action :set_itinerary
   before_action :set_itinerary_item, only: [:show, :update, :destroy]
   
-  api :GET, "itinerary_items", "Show all itinerary items"
+  api :GET, "itinerary/:itinerary_id/itinerary_items", "Show all itinerary items"
   def index
     @itinerary_items = @itinerary.itinerary_items.order('index')
 
     render json: @itinerary_items
   end
 
-  api :GET, "itinerary_items/:id", "Show a itinerary item details"
+  api :GET, "itinerary/:itinerary_id/itinerary_items/:id", "Show a itinerary item details"
   def show
     render json: @itinerary_item
   end
 
-  api :POST, "itinerary_items", "Create a itinerary item"
+  api :POST, "itinerary/:itinerary_id/itinerary_items", "Create a itinerary item"
   def create
     @itinerary_item = ItineraryItem.new(itinerary_item_params)
 
@@ -25,7 +25,7 @@ class Api::V1::ItineraryItemsController < ApplicationController
     end
   end
 
-  api :PUT, "itinerary_items/:id", "Edit a itinerary item"
+  api :PUT, "itinerary/:itinerary_id/itinerary_items/:id", "Edit a itinerary item"
   def update
     if @itinerary_item.update(itinerary_item_params)
       render json: @itinerary_item
@@ -34,7 +34,7 @@ class Api::V1::ItineraryItemsController < ApplicationController
     end
   end
 
-  api :DELETE, "itinerary_items/:id", "Delete a itinerary item"
+  api :DELETE, "itinerary/:itinerary_id/itinerary_items/:id", "Delete a itinerary item"
   def destroy
     @itinerary_item.destroy
   end
