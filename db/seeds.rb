@@ -5,10 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create([{ name: 'João da Costa' }, { name: 'Eiji Adachi' }, { name: 'Paula Costa' }, 
-             { name: 'Antônio Fagundes'}, { name: 'Stenio Garcia'}])
+User.create([{ name: 'Antônio Fagundes' }, { name: 'Stenio Garcia' }, { name: 'Paula Costa' }, 
+             { name: 'João da Costa'}, { name: 'Eiji Adachi'}])
 Driver.create([{ user_id: User.first.id }, { user_id: User.second.id }])
-Vehicle.create([{ company_id: 'HHT-01', driver_id: Driver.first.id }, {company_id: 'Horch-01', driver_id: Driver.second.id } ])
+Vehicle.create([{ company_id: 'HHT-01'}, {company_id: 'Horch-01'} ])
 Location.create([{ vehicle_id: Vehicle.first.id , latitude: '-5.830272', longitude: '-35.201803' },
                 {vehicle_id: Vehicle.second.id, latitude: '-5.812057', longitude: '-35.20714' },
                 {vehicle_id: Vehicle.second.id, latitude: '-5.812059', longitude: '-35.20714' }])
