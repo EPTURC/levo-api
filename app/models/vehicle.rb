@@ -2,6 +2,9 @@ class Vehicle < ApplicationRecord
     has_many :locations
     belongs_to :driver
 
+    ONE_METER = 1
+    NM_TO_METER = 1852
+
     def as_json(options={})
       super(:only => [:id, :company_id, :driver_id], :include => { last_location: { only: [:latitude, :longitude, :created_at] }}, :methods => [:status] )
     end
@@ -11,20 +14,20 @@ class Vehicle < ApplicationRecord
     end
 
     def is_stopped
-      last = self.locations.last(3)
-      v1 = last[0]
-      v2 = last[1]
-      v3 = last[2]
+      last_3 = self.locations.last(3)
+      v1 = last_3.first
+      v2 = last_3.second
+      v3 = last_3.third
       if (v2.nil? && v3.nil?)
         true
       elsif (v3.nil?)
-        if (dist(v1, v2) < 1)
+        if (dist(v1, v2) < ONE_METER)
           true
         else
           false
         end
       else
-        if (dist(v1, v2) < 1 && dist(v1, v3) < 1 && dist(v2, v3) < 1)
+        if (dist(v1, v2) < ONE_METER && dist(v1, v3) < ONE_METER && dist(v2, v3) < ONE_METER)
           true
         else
           false
@@ -34,8 +37,8 @@ class Vehicle < ApplicationRecord
     end
 
     def dist(v1, v2)
-      dla = ((v1.latitude.to_d - v2.latitude.to_d).abs) * 1852
-      dlo = ((v1.longitude.to_d - v2.longitude.to_d).abs) * 1852
+      dla = ((v1.latitude.to_d - v2.latitude.to_d).abs) * NM_TO_METER
+      dlo = ((v1.longitude.to_d - v2.longitude.to_d).abs) * NM_TO_METER
       Math.sqrt(dla ** 2 + dlo ** 2)
     end
 
