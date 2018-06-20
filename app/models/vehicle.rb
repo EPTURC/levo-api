@@ -34,7 +34,9 @@ class Vehicle < ApplicationRecord
     end
 
     def dist(v1, v2)
-      Math.sqrt((v1.latitude.to_d - v2.latitude.to_d) ** 2 + (v1.longitude.to_d - v2.longitude.to_d) ** 2)
+      dla = ((v1.latitude.to_d - v2.latitude.to_d).abs) * 1852
+      dlo = ((v1.longitude.to_d - v2.longitude.to_d).abs) * 1852
+      Math.sqrt(dla ** 2 + dlo ** 2)
     end
 
     def status
