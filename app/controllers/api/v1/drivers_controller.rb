@@ -1,19 +1,26 @@
 class Api::V1::DriversController < ApplicationController
   before_action :set_driver, only: [:show, :update, :destroy]
+
+  def_param_group :driver do
+    param :user_id, Fixnum, :desc => "User ID"
+  end
+
+  param_group :driver
   api :GET, "drivers", "Show all drivers"
-  # GET /api/v1/drivers
   def index
     @drivers = Driver.all
 
     render json: @drivers
   end
+
+  param_group :driver
   api :GET, "drivers/:id", "Show a driver details"
-  # GET /api/v1/drivers/1
   def show
     render json: @driver
   end
+
+  param_group :driver
   api :POST, "drivers", "Create a driver"
-  # POST /api/v1/drivers
   def create
     @driver = Driver.new(driver_params)
 
@@ -23,8 +30,9 @@ class Api::V1::DriversController < ApplicationController
       render json: @driver.errors, status: :unprocessable_entity
     end
   end
+
+  param_group :driver
   api :PUT, "drivers/:id", "Edit a driver"
-  # PATCH/PUT /api/v1/drivers/1
   def update
     if @driver.update(driver_params)
       render json: @driver
@@ -32,10 +40,26 @@ class Api::V1::DriversController < ApplicationController
       render json: @driver.errors, status: :unprocessable_entity
     end
   end
+
   api :DELETE, "drivers/:id", "Delete a driver"
-  # DELETE /api/v1/drivers/1
   def destroy
     @driver.destroy
+  end
+
+  param_group :driver
+  api :GET, "drivers/name/:name", "Find a driver by the user name"
+  def show_by_name
+    @user = User.find_by('lower(name) ILIKE ?', "%" + params[:name].downcase+"%")
+    if @user
+      @driver = Driver.where('user_id = ?', @user.id).take
+      if @driver
+        render json: @driver
+      else
+        render json: { error: "Not found" }, status: :not_found
+      end
+    else
+      render json: { error: "Not found" }, status: :not_found
+    end
   end
 
   private

@@ -7,8 +7,14 @@ Rails.application.routes.draw do
         resources :locations
       end
       resources :users, defaults: { format: :json }
-
-      get '/vehicles/search/:name', to: 'vehicles#search_by_company_id', as: 'search_by_company_id'
+      resources :itineraries do
+        resources :itinerary_items
+      end
+      resources :tasks
+      
+      get '/vehicles/company_id/:company_id', to: 'vehicles#show_by_company_id', as: 'show_by_company_id'
+      get '/itineraries/driver/:driver', to: 'itineraries#show_by_driver', as: 'show_by_driver'
+      get '/drivers/name/:name', to: 'drivers#show_by_name', as: 'show_by_name'
     end
   end
 end

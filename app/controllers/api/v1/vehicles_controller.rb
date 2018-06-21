@@ -1,6 +1,11 @@
 class Api::V1::VehiclesController < ApplicationController
   before_action :set_vehicle, only: [:show, :update, :destroy]
+
+  def_param_group :vehicle do
+    param :company_id, String, :desc => "Company's vehicle identification"
+  end
   
+  param_group :vehicle
   api :GET, "vehicles", "Show all vehicles"
   def index
     @vehicles = Vehicle.all.includes(:locations)
@@ -8,11 +13,13 @@ class Api::V1::VehiclesController < ApplicationController
     render json: @vehicles 
   end
 
+  param_group :vehicle
   api :GET, "vehicles/:id", "Show a vehicle details"
   def show
     render json: @vehicle
   end
 
+  param_group :vehicle
   api :POST, "vehicles", "Create a vehicle"
   def create
     @vehicle = Vehicle.new(vehicle_params)
@@ -24,8 +31,8 @@ class Api::V1::VehiclesController < ApplicationController
     end
   end
 
+  param_group :vehicle
   api :PUT, "vehicles/:id", "Edit a vehicle"
-  # PATCH/PUT /api/v1/vehicles/1
   def update
     if @vehicle.update(vehicle_params)
       render json: @vehicle
@@ -35,14 +42,14 @@ class Api::V1::VehiclesController < ApplicationController
   end
 
   api :DELETE, "vehicles/:id", "Delete a vehicle"
-  # DELETE /api/v1/vehicles/1
   def destroy
     @vehicle.destroy
   end
 
-  api :GET, "vehicles/search/:company_id", "Find a vehicle by his company_id"
-  def search_by_company_id
-    @vehicle = Vehicle.find_by('lower(company_id) ILIKE ?', "%" + params[:name].downcase+"%")
+  param_group :vehicle
+  api :GET, "vehicles/company_id/:company_id", "Find a vehicle by his company_id"
+  def show_by_company_id
+    @vehicle = Vehicle.find_by('lower(company_id) ILIKE ?', "%" + params[:company_id].downcase+"%")
     
     if @vehicle
       render json: @vehicle
