@@ -1,19 +1,30 @@
 class Api::V1::OccurrencesController < ApplicationController
   before_action :set_occurrence, only: [:show, :update, :destroy]
 
-  # GET /occurrences
+  def_param_group :occurrence do
+    param :type, String, :desc => "Type"
+    param :location, String, :desc => "Location"
+    param :description, String, :desc => "Description"
+    param :driver_id, Fixnum, :desc => "Driver"
+    param :created_at, Date, :desc => "Date"
+  end
+
+  param_group :occurrence
+  api :GET, "occurrences", "Show all occurrences"
   def index
     @occurrences = Occurrence.all
 
     render json: @occurrences
   end
 
-  # GET /occurrences/1
+  param_group :occurrence
+  api :GET, "occurrences/:id", "Show a occurrence details"
   def show
     render json: @occurrence
   end
 
-  # POST /occurrences
+  param_group :occurrence
+  api :POST, "occurrences", "Create a occurrence"
   def create
     @occurrence = Occurrence.new(occurrence_params)
 
@@ -24,7 +35,8 @@ class Api::V1::OccurrencesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /occurrences/1
+  param_group :occurrence
+  api :PUT, "occurrences/:id", "Edit a occurrence"
   def update
     if @occurrence.update(occurrence_params)
       render json: @occurrence
@@ -33,7 +45,7 @@ class Api::V1::OccurrencesController < ApplicationController
     end
   end
 
-  # DELETE /occurrences/1
+  api :DELETE, "occurrences/:id", "Delete a occurrence"
   def destroy
     @occurrence.destroy
   end
