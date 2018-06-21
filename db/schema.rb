@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_131408) do
+ActiveRecord::Schema.define(version: 2018_06_21_150055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 2018_06_19_131408) do
     t.index ["vehicle_id"], name: "index_locations_on_vehicle_id"
   end
 
+  create_table "occurrences", force: :cascade do |t|
+    t.string "type"
+    t.string "location"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "driver_id"
+    t.index ["driver_id"], name: "index_occurrences_on_driver_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "object"
     t.string "responsible_name"
@@ -79,4 +89,5 @@ ActiveRecord::Schema.define(version: 2018_06_19_131408) do
   add_foreign_key "itinerary_items", "itineraries"
   add_foreign_key "itinerary_items", "tasks"
   add_foreign_key "locations", "vehicles"
+  add_foreign_key "occurrences", "drivers"
 end
