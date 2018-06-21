@@ -5,6 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Occurrence.all.destroy_all
+ItineraryItem.all.destroy_all
+Task.all.destroy_all
+
+Itinerary.all.destroy_all
+Location.all.destroy_all
+Vehicle.all.destroy_all
+Driver.all.destroy_all
+User.all.destroy_all
+
+
 User.create([{ name: 'Antônio Fagundes' }, { name: 'Stenio Garcia' }, { name: 'Paula Costa' }, 
              { name: 'João da Costa'}, { name: 'Eiji Adachi'}])
 Driver.create([{ user_id: User.first.id }, { user_id: User.second.id }])
@@ -17,3 +29,5 @@ Task.create([ {object: "Caderno sem capas", responsible_name: "Maria", type: "Co
               { object: "Móvel 10kg", responsible_name: "João", type: "Entrega", local: "-25.2003, -25.1201"} ])
 ItineraryItem.create([ { itinerary_id: Itinerary.first.id, index: 1, done: false, task_id: Task.first.id },
                         { itinerary_id: Itinerary.first.id, index: 2, done: false, task_id: Task.second.id } ])
+Occurrence.create([ { type: "Quebra de carro", location: "Av. Moema Tinoco, 202", description: "Tinha um buraco na estrada!", driver_id: Driver.first.id}, 
+                    { type: "Quebra de carro", location: "Av. João Silva Tinoco, 202", description: "Estava chovendo", driver_id: Driver.second.id }])
