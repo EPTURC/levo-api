@@ -42,7 +42,7 @@ class Vehicle < ApplicationRecord
     end
 
     def status
-      if (self.last_location.minutes_since_updated > 1)
+      if (self.last_location && self.last_location.minutes_since_updated > 1)
         "offline" 
       elsif self.is_stopped
         "stopped" 
