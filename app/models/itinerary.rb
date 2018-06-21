@@ -2,8 +2,6 @@ class Itinerary < ApplicationRecord
   belongs_to :vehicle
   belongs_to :driver
   has_many :itinerary_items
-  validate :check_driver
-  validate :check_vehicle
 
   STATUS_OPTIONS = ['ativo', 'inativo']
   validates_inclusion_of :status, :in => STATUS_OPTIONS, message: "Invalid status. Valid options are: 'ativo' and 'inativo'"
@@ -11,8 +9,5 @@ class Itinerary < ApplicationRecord
   def items
     self.itinerary_items.order('index')
   end
-
-
-
 
 end
