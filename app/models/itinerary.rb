@@ -13,13 +13,13 @@ class Itinerary < ApplicationRecord
   end
 
   def check_driver
-    if Itinerary.where(status: 'ativo', driver: self.driver).exist?
+    if Itinerary.where(status: 'ativo', driver: self.driver).exists?
       errors.add(:driver, "Não foi possível adicionar este motorista a este itinerário, pois ele já está em outro itinerário ativo")
     end
   end
 
   def check_vehicle
-    if Itinerary.where(status: 'ativo', driver: self.vehicle).exist?
+    if Itinerary.where(status: 'ativo', driver: self.vehicle).exists?
       errors.add(:vehicle, "Não foi possível adicionar este veículo a este itinerário, pois ele já está em outro itinerário ativo")
     end
   end

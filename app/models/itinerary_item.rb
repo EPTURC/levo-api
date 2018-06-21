@@ -25,7 +25,7 @@ class ItineraryItem < ApplicationRecord
 
   def check_index
     if self.task.type == "Entrega"
-      if !self.previous_on_itinerary || self.previous_on_itinerary.type != "Coleta"
+      if !self.previous_on_itinerary || self.previous_on_itinerary.task.type != "Coleta"
         errors.add(:task, "Você não pode adicionar uma entrega nesse itinerário pois não há uma coleta antes.")
       end
     end

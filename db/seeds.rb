@@ -5,6 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Occurrence.all.destroy_all
+ItineraryItem.all.destroy_all
+Task.all.destroy_all
+
+Itinerary.all.destroy_all
+Location.all.destroy_all
+Vehicle.all.destroy_all
+Driver.all.destroy_all
+User.all.destroy_all
+
+
 User.create([{ name: 'Antônio Fagundes' }, { name: 'Stenio Garcia' }, { name: 'Paula Costa' }, 
              { name: 'João da Costa'}, { name: 'Eiji Adachi'}])
 Driver.create([{ user_id: User.first.id }, { user_id: User.second.id }])
