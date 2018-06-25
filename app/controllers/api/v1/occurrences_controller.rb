@@ -29,7 +29,7 @@ class Api::V1::OccurrencesController < ApplicationController
     @occurrence = Occurrence.new(occurrence_params)
 
     if @occurrence.save
-      render json: @occurrence, status: :created, location: @occurrence
+      render json: @occurrence, status: :created
     else
       render json: @occurrence.errors, status: :unprocessable_entity
     end
