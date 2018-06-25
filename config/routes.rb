@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :vehicles, defaults: {format: :json} do
         resources :locations
       end
+      get '/users/admins', to: 'users#admin_index', as: 'admin_index'
       resources :users, defaults: { format: :json }
       resources :itineraries do
         resources :itinerary_items
