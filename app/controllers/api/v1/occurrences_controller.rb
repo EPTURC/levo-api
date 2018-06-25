@@ -8,6 +8,7 @@ class Api::V1::OccurrencesController < ApplicationController
     param :driver_id, Fixnum, :desc => "Driver reporter"
     param :itinerary_id, Fixnum, :desc => "Related itinerary"
     param :created_at, Date, :desc => "Date"
+    param :solved, ["true", "false"], :desc => "Solved"
   end
 
   param_group :occurrence
@@ -59,7 +60,7 @@ class Api::V1::OccurrencesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def occurrence_params
-      params.require(:occurrence).permit(:type, :location, :description, :driver_id, :itinerary_id)
+      params.require(:occurrence).permit(:type, :location, :description, :driver_id, :itinerary_id, :solved)
     end
 
 end

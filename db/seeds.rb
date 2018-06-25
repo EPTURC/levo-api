@@ -29,5 +29,7 @@ Task.create([ {object: "Caderno sem capas", responsible_name: "Maria", type: "Co
               { object: "Móvel 10kg", responsible_name: "João", type: "Entrega", local: "-25.2003, -25.1201"} ])
 ItineraryItem.create([ { itinerary_id: Itinerary.first.id, index: 1, done: false, task_id: Task.first.id },
                         { itinerary_id: Itinerary.first.id, index: 2, done: false, task_id: Task.second.id } ])
-Occurrence.create([ { type: "Quebra de carro", location: "Av. Moema Tinoco, 202", description: "Tinha um buraco na estrada!", driver_id: Driver.first.id}, 
-                    { type: "Quebra de carro", location: "Av. João Silva Tinoco, 202", description: "Estava chovendo", driver_id: Driver.second.id }])
+Occurrence.create([ { type: "Quebra de carro", location: "Av. Moema Tinoco, 202", description: "Tinha um buraco na estrada!", driver_id: Driver.first.id, 
+                        itinerary_id: Itinerary.second.id , solved: false}, 
+                    { type: "Quebra de carro", location: "Av. João Silva Tinoco, 202", description: "Estava chovendo", 
+                    driver_id: Driver.second.id, itinerary_id: Itinerary.first.id, solved: true}])
