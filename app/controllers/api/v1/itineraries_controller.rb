@@ -30,7 +30,7 @@ class Api::V1::ItinerariesController < ApplicationController
   param_group :itinerary
   api :GET, "itineraries/:id", "Show a itinerary details with his items included, ordered by index"
   def show
-    render json: @itinerary.as_json(:include => { items: { only: [:task_id, :index, :done] }})
+    render json: @itinerary.as_json(:include => { items: { only: [:id, :task_id, :index, :done] }})
   end
 
   param_group :itinerary
