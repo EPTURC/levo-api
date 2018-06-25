@@ -27,7 +27,7 @@ class Api::V1::OccurrencesController < ApplicationController
   api :POST, "occurrences", "Create a occurrence"
   def create
     @occurrence = Occurrence.new(occurrence_params)
-
+    
     if @occurrence.save
       render json: @occurrence, status: :created
     else
@@ -58,6 +58,7 @@ class Api::V1::OccurrencesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def occurrence_params
-      params.require(:occurrence).permit(:type, :location, :description)
+      params.require(:occurrence).permit(:type, :location, :description, :driver_id)
     end
+
 end
