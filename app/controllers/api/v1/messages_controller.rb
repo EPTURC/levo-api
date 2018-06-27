@@ -4,6 +4,12 @@ class Api::V1::MessagesController < ApplicationController
   def_param_group :message do
     param :message, String, :desc => "Content"
     param :driver_id, Fixnum, :desc => "Receiver driver"
+    param :user_id, Fixnum, :desc => "Sender"
+  end
+
+  def_param_group :driver_messages do
+    param :message, String, :desc => "Content"
+    param :user_id, Fixnum, :desc => "Sender"
   end
 
   param_group :message
@@ -45,6 +51,20 @@ class Api::V1::MessagesController < ApplicationController
   api :DELETE, "messages/:id", "Delete a message"
   def destroy
     @message.destroy
+  end
+
+  param_group :driver_messages
+  api :GET, "messages/driver/:driver", "Find and show the messages that belong to the driver"
+  def select_by_driver
+    @driver_messages = Message.where("driver_id = ?", params[:driver]).take
+    if @driver_messages
+      render json:
+        @driver_messages.as_json(only: [:id, :message], :include => [
+          {user: {only: [:id, :name]}}
+        ])
+    else
+      render json: '{"error": "not_found"}', status: :not_found
+    end
   end
 
   private
