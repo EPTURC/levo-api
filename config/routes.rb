@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   apipie
   namespace :api do
     namespace :v1 do
+      get '/drivers/available', to: 'drivers#show_available', as: 'show_available'
       resources :drivers, defaults: {format: :json} 
       resources :vehicles, defaults: {format: :json} do
         resources :locations
@@ -16,7 +17,6 @@ Rails.application.routes.draw do
       get '/vehicles/company_id/:company_id', to: 'vehicles#show_by_company_id', as: 'show_by_company_id'
       get '/itineraries/driver/:driver', to: 'itineraries#show_by_driver', as: 'show_by_driver'
       get '/drivers/name/:name', to: 'drivers#show_by_name', as: 'show_by_name'
-      get '/drivers/available', to: 'drivers#show_available', as: 'show_available'
     end
   end
 end
