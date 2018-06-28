@@ -25,7 +25,7 @@ class Api::V1::ItinerariesController < ApplicationController
     @itineraries = Itinerary.all
 
     render json: @itineraries.as_json(:include => [
-                            { vehicle: { only: [:id, :company_id ] }} ] , :methods => [:situation])
+                            { vehicle: { only: [:id, :company_id ], :methods => [:last_location] }} ] , :methods => [:situation])
   end
 
   param_group :itinerary
