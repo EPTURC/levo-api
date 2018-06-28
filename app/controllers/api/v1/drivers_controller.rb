@@ -62,6 +62,29 @@ class Api::V1::DriversController < ApplicationController
     end
   end
 
+  param_group :driver
+  api :GET, "drivers/available", "Show all drivers who are not active"
+  def show_available
+
+    @itineraries = Itinerary.all
+    @drivers = Driver.all
+    
+    @availables = []
+
+    @drivers.each do |driver|
+      flag = false
+      @itineraries.each do |itinerary|
+        if driver.user_id == itinerary.driver_id
+          flag = true
+        end
+      end
+      if !flag
+        @availables.push(driver)
+      end
+    end
+    render json: @availables
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_driver
