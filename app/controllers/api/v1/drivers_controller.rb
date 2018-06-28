@@ -74,7 +74,7 @@ class Api::V1::DriversController < ApplicationController
     @drivers.each do |driver|
       flag = false
       @itineraries.each do |itinerary|
-        if driver.user_id == itinerary.driver_id
+        if driver.id == itinerary.driver_id
           flag = true
         end
       end
