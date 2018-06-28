@@ -34,7 +34,7 @@ class Itinerary < ApplicationRecord
   end
   
   def has_active_occurrence
-    !self.occurrences.last.solved
+    !self.occurrences.last.solved if self.occurrences
   end
 
 end
