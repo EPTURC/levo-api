@@ -1,6 +1,11 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   
+  def_param_group :user do
+    param :name, String, :desc => "User name"
+  end
+
+  param_group :user
   api :GET, "users", "Show all users"
   def index
     @users = User.all
@@ -8,11 +13,21 @@ class Api::V1::UsersController < ApplicationController
     render json: @users
   end
 
+  param_group :user
+  api :GET, "users/admins", "Show all admin users"
+  def admin_index
+    @users = User.where(is_admin: true)
+
+    render json: @users
+  end
+
+  param_group :user
   api :GET, "users/:id", "Show a user details"
   def show
     render json: @user
   end
 
+  param_group :user
   api :POST, "users", "Create a user"
   def create
     @user = User.new(user_params)
@@ -24,6 +39,7 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  param_group :user
   api :PUT, "users/:id", "Edit a user"
   def update
     if @user.update(user_params)
@@ -46,6 +62,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name)
+      params.require(:user).permit(:name, :is_admin)
     end
 end

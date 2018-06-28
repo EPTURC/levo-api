@@ -2,10 +2,13 @@ Rails.application.routes.draw do
   apipie
   namespace :api do
     namespace :v1 do
+      get '/drivers/available', to: 'drivers#show_available', as: 'show_available_drivers'
+      get '/vehicles/available', to: 'vehicles#show_available', as: 'show_available_vehicles'
       resources :drivers, defaults: {format: :json} 
       resources :vehicles, defaults: {format: :json} do
         resources :locations
       end
+      get '/users/admins', to: 'users#admin_index', as: 'admin_index'
       resources :users, defaults: { format: :json }
       resources :itineraries do
         resources :itinerary_items

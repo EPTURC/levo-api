@@ -5,8 +5,10 @@ class Api::V1::OccurrencesController < ApplicationController
     param :type, String, :desc => "Type"
     param :location, String, :desc => "Location"
     param :description, String, :desc => "Description"
-    param :driver_id, Fixnum, :desc => "Driver"
+    param :driver_id, Fixnum, :desc => "Driver reporter"
+    param :itinerary_id, Fixnum, :desc => "Related itinerary"
     param :created_at, Date, :desc => "Date"
+    param :solved, ["true", "false"], :desc => "Solved"
   end
 
   param_group :occurrence
@@ -27,9 +29,9 @@ class Api::V1::OccurrencesController < ApplicationController
   api :POST, "occurrences", "Create a occurrence"
   def create
     @occurrence = Occurrence.new(occurrence_params)
-
+    
     if @occurrence.save
-      render json: @occurrence, status: :created, location: @occurrence
+      render json: @occurrence, status: :created
     else
       render json: @occurrence.errors, status: :unprocessable_entity
     end
@@ -58,6 +60,7 @@ class Api::V1::OccurrencesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def occurrence_params
-      params.require(:occurrence).permit(:type, :location, :description)
+      params.require(:occurrence).permit(:type, :location, :description, :driver_id, :itinerary_id, :solved)
     end
+
 end
