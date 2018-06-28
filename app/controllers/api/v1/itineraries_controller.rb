@@ -24,7 +24,7 @@ class Api::V1::ItinerariesController < ApplicationController
   def index
     @itineraries = Itinerary.all
 
-    render json: @itineraries
+    render json: @itineraries.as_json(:methods => [:situation])
   end
 
   param_group :itinerary

@@ -19,7 +19,7 @@ User.all.destroy_all
 
 User.create([{ name: 'Antônio Fagundes' }, { name: 'Stenio Garcia' }, { name: 'Paula Costa' }, 
              { name: 'João da Costa'}, { name: 'Eiji Adachi', is_admin:true }])
-Driver.create([{ user_id: User.first.id }, { user_id: User.second.id }])
+Driver.create([{ user_id: User.first.id }, { user_id: User.second.id }, { user_id: User.third.id }])
 Vehicle.create([{ company_id: 'HHT-01'}, {company_id: 'Horch-01'} ])
 Location.create([{ vehicle_id: Vehicle.first.id , latitude: '-5.830272', longitude: '-35.201803' },
                 {vehicle_id: Vehicle.second.id, latitude: '-5.812057', longitude: '-35.20714' },
