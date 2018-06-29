@@ -2,13 +2,13 @@ class Api::V1::MessagesController < ApplicationController
   before_action :set_message, only: [:show, :update, :destroy]
 
   def_param_group :message do
-    param :message, String, :desc => "Content"
+    param :message_text, String, :desc => "Content"
     param :driver_id, Fixnum, :desc => "Receiver driver"
     param :user_id, Fixnum, :desc => "Sender"
   end
 
   def_param_group :driver_messages do
-    param :message, String, :desc => "Content"
+    param :message_text, String, :desc => "Content"
     param :user_id, Fixnum, :desc => "Sender"
   end
 
@@ -74,7 +74,7 @@ class Api::V1::MessagesController < ApplicationController
     end
 
     # Only allow a trusted parameter "white list" through.
-    def message_params
-      params.require(:message).permit(:user_id, :driver_id, :message)
+    def message_params 
+      params.require(:message).permit(:message_text, :user_id, :driver_id)
     end
 end

@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_06_27_161711) do
   create_table "messages", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "driver_id"
-    t.string "message"
+    t.string "message_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["driver_id"], name: "index_messages_on_driver_id"

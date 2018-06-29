@@ -33,5 +33,5 @@ Occurrence.create([ { type: "Quebra de carro", location: "Av. Moema Tinoco, 202"
                         itinerary_id: Itinerary.second.id , solved: false}, 
                     { type: "Quebra de carro", location: "Av. João Silva Tinoco, 202", description: "Estava chovendo", 
                     driver_id: Driver.second.id, itinerary_id: Itinerary.first.id, solved: true}])
-Message.create([{message: "Paralização na pista", driver_id: Driver.first.id, user_id: User.first.id},
-                {message: "Desvio informado", driver_id: Driver.second.id, user_id: User.first.id}]);                    
+Message.create([{message_text: "Paralização na pista", driver_id: Driver.first.id, user_id: User.first.id},
+                {message_text: "Desvio informado", driver_id: Driver.second.id, user_id: User.first.id}]);                    
