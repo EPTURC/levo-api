@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2018_06_25_162156) do
     t.datetime "updated_at", null: false
     t.bigint "driver_id"
     t.bigint "itinerary_id"
-    t.boolean "solved"
+    t.boolean "solved", default: false
     t.index ["driver_id"], name: "index_occurrences_on_driver_id"
     t.index ["itinerary_id"], name: "index_occurrences_on_itinerary_id"
   end

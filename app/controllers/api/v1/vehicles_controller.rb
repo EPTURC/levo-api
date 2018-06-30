@@ -58,6 +58,29 @@ class Api::V1::VehiclesController < ApplicationController
     end
   end
 
+  param_group :vehicle
+  api :GET, "vehicles/available", "Show all vehicles who are not active"
+  def show_available
+
+    @itineraries = Itinerary.all
+    @vehicles = Vehicle.all
+    
+    @availables = []
+
+    @vehicles.each do |vehicle|
+      flag = false
+      @itineraries.each do |itinerary|
+        if vehicle.id == itinerary.vehicle_id
+          flag = true
+        end
+      end
+      if !flag
+        @availables.push(vehicle)
+      end
+    end
+    render json: @availables
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vehicle
