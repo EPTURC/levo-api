@@ -58,7 +58,11 @@ class Api::V1::UsersController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user && user.authenticate(params[:password])
-        token = JsonWebToken.encode({ user_id: user.id, email: user.email, name: user.name })
+        token = JsonWebToken.encode({ user_id: user.id,
+                                      email: user.email,
+                                      name: user.name,
+                                      is_admin: user.is_admin?
+        })
 
         render json: { auth_token: token }, status: :ok
     else
