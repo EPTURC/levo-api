@@ -17,6 +17,7 @@ Driver.all.destroy_all
 User.all.destroy_all
 
 
+
 User.create([{ name: 'Antônio Fagundes' }, { name: 'Stenio Garcia' }, { name: 'Paula Costa' }, 
              { name: 'João da Costa'}, { name: 'Eiji Adachi', is_admin:true }])
 Driver.create([{ user_id: User.first.id }, { user_id: User.second.id }, { user_id: User.third.id }, { user_id: User.fourth.id }] )
