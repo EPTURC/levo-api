@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         resources :locations
       end
       get '/users/admins', to: 'users#admin_index', as: 'admin_index'
+      post '/users/login', to: 'users#login', as: 'login'
       resources :users, defaults: { format: :json }
       resources :itineraries do
         resources :itinerary_items

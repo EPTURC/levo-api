@@ -54,6 +54,18 @@ class Api::V1::UsersController < ApplicationController
     @user.destroy
   end
 
+  def login
+    user = User.find_by(email: params[:email])
+
+    if user && user.authenticate(params[:password])
+        token = JsonWebToken.encode({ user_id: user.id, email: user.email, name: user.name })
+
+        render json: { auth_token: token }, status: :ok
+    else
+      render json: { error: 'Invalid credentials' }, status: :unauthorized
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -62,6 +74,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :is_admin)
+      params.require(:user).permit(:name, :is_admin, :email, :password, :password_confirmation)
     end
 end
