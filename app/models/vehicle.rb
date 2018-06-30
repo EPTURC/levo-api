@@ -5,7 +5,7 @@ class Vehicle < ApplicationRecord
     NM_TO_METER = 1852
 
     def as_json(options={})
-      super(:only => [:id, :company_id], :include => { last_location: { only: [:latitude, :longitude, :created_at] }}, :methods => [:status] )
+      super(:only => [:id, :company_id, :model, :color, :license_plate], :include => { last_location: { only: [:latitude, :longitude, :created_at] }}, :methods => [:status] )
     end
 
     def last_location
