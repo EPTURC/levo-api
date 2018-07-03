@@ -89,6 +89,6 @@ class Api::V1::VehiclesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def vehicle_params
-      params.required(:vehicle).permit(:company_id, :license_plate, :model, :color, :battery)
+      params.required(:vehicle).permit(:company_id, :license_plate, :model, :color)
     end
 end
