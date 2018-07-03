@@ -20,8 +20,8 @@ User.all.destroy_all
 User.create([{ name: 'Antônio Fagundes', phone: '9999-9999', rg: '000111222', cpf: '123.456.789-00', adress: 'Rua do imd, 10' }, { name: 'Stenio Garcia', cpf: '987.654.321-99' }, { name: 'Paula Costa', rg: '000000000'}, 
             { name: 'João da Costa', adress: 'rua da biblioteca, 5'}, { name: 'Eiji Adachi', adress: 'Park Avenue, 432 - NY', is_admin:true }])
 Driver.create([{ user_id: User.first.id }, { user_id: User.second.id }, { user_id: User.third.id }, { user_id: User.fourth.id }] )
-Vehicle.create([{ company_id: 'HHT-01' , license_plate: 'ABC-1234', model: 'volvo globetrotter', color: 'white'}, 
-				{company_id: 'Horch-01', license_plate: 'DEF-5678', model: 'scania r440', color: 'red'} ])
+Vehicle.create([{ company_id: 'HHT-01' , license_plate: 'ABC-1234', model: 'volvo globetrotter', color: 'white', battery: '81'}, 
+				{company_id: 'Horch-01', license_plate: 'DEF-5678', model: 'scania r440', color: 'red', battery: '16'} ])
 Location.create([{ vehicle_id: Vehicle.first.id , latitude: '-5.830272', longitude: '-35.201803' },
                 {vehicle_id: Vehicle.second.id, latitude: '-5.812057', longitude: '-35.20714' },
                 {vehicle_id: Vehicle.second.id, latitude: '-5.812059', longitude: '-35.20714' }])

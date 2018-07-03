@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_25_162156) do
+ActiveRecord::Schema.define(version: 2018_07_02_220616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 2018_06_25_162156) do
     t.index ["vehicle_id"], name: "index_locations_on_vehicle_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "driver_id"
+    t.string "message_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_messages_on_driver_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "occurrences", force: :cascade do |t|
     t.string "type"
     t.string "location"
@@ -79,12 +89,20 @@ ActiveRecord::Schema.define(version: 2018_06_25_162156) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_admin", default: false
+    t.string "phone"
+    t.string "rg"
+    t.string "cpf"
+    t.string "adress"
   end
 
   create_table "vehicles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "company_id"
+    t.string "license_plate"
+    t.string "model"
+    t.string "color"
+    t.integer "battery"
   end
 
   add_foreign_key "drivers", "users"
@@ -93,6 +111,8 @@ ActiveRecord::Schema.define(version: 2018_06_25_162156) do
   add_foreign_key "itinerary_items", "itineraries"
   add_foreign_key "itinerary_items", "tasks"
   add_foreign_key "locations", "vehicles"
+  add_foreign_key "messages", "drivers"
+  add_foreign_key "messages", "users"
   add_foreign_key "occurrences", "drivers"
   add_foreign_key "occurrences", "itineraries"
 end
