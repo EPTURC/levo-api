@@ -22,7 +22,7 @@ class Api::V1::ItinerariesController < ApplicationController
   param_group :itinerary
   api :GET, "itineraries", "Show only active itineraries"
   def index
-    @itineraries = Itinerary.where(status="ativo") 
+    @itineraries = Itinerary.where("status='ativo'") 
 
     render json: @itineraries.as_json(:methods => [:situation])
   end
