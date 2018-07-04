@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_03_230439) do
+ActiveRecord::Schema.define(version: 2018_07_03_235217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2018_07_03_230439) do
     t.string "license_plate"
     t.string "model"
     t.string "color"
+    t.integer "battery"
   end
 
   add_foreign_key "drivers", "users"
