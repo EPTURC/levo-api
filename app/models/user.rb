@@ -7,4 +7,8 @@ class User < ApplicationRecord
   def as_json(options={})
     super(except: :password_digest)
   end
+
+  def is_admin?
+    self.is_admin
+  end
 end

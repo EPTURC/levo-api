@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
 
   private
   def retrieve_payload
-    auth_header = request.headers['token']
+    auth_header = request.headers['Authorization']
 
     token = auth_header.split(' ').last
 

@@ -1,4 +1,5 @@
 class Api::V1::OccurrencesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_occurrence, only: [:show, :update, :destroy]
 
   def_param_group :occurrence do

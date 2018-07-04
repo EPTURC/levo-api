@@ -1,4 +1,5 @@
 class Api::V1::ItineraryItemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_itinerary
   before_action :set_itinerary_item, only: [:show, :update, :destroy]
   

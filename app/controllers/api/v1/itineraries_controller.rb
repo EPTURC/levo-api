@@ -1,4 +1,5 @@
 class Api::V1::ItinerariesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_itinerary, only: [:show, :update, :destroy]
 
   resource_description do

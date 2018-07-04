@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :authenticate_user!, except: :login
   before_action :set_user, only: [:show, :update, :destroy]
   
   def_param_group :user do
@@ -31,11 +32,14 @@ class Api::V1::UsersController < ApplicationController
   api :POST, "users", "Create a user"
   def create
     @user = User.new(user_params)
-
-    if @user.save
-      render json: @user, status: :created
+    if @current_user.is_admin?
+      if @user.save
+        render json: @user, status: :created
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: 'Forbidden' }, status: :forbidden
     end
   end
 

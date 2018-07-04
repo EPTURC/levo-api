@@ -1,4 +1,5 @@
 class Api::V1::DriversController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_driver, only: [:show, :update, :destroy]
 
   def_param_group :driver do
@@ -24,10 +25,14 @@ class Api::V1::DriversController < ApplicationController
   def create
     @driver = Driver.new(driver_params)
 
-    if @driver.save
-      render json: @driver, status: :created
+    if @current_user.is_admin?
+      if @driver.save
+        render json: @driver, status: :created
+      else
+        render json: @driver.errors, status: :unprocessable_entity
+      end
     else
-      render json: @driver.errors, status: :unprocessable_entity
+      render json: { error: 'Forbidden' }, status: :forbidden
     end
   end
 

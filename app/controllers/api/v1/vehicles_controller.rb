@@ -1,4 +1,5 @@
 class Api::V1::VehiclesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_vehicle, only: [:show, :update, :destroy]
 
   def_param_group :vehicle do

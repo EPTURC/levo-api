@@ -1,4 +1,5 @@
 class Api::V1::LocationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_vehicle
   before_action :set_location, only: %i[show]
 
