@@ -51,6 +51,16 @@ class Api::V1::DriversController < ApplicationController
     @driver.destroy
   end
 
+  def me
+    @driver = Driver.where(user: @current_user).first
+
+    if @driver
+      render json: @driver
+    else
+      render json: { error: 'Not found' }, status: :not_found
+    end
+  end
+
   param_group :driver
   api :GET, "drivers/name/:name", "Find a driver by the user name"
   def show_by_name

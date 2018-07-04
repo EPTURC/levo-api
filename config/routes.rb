@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/drivers/available', to: 'drivers#show_available', as: 'show_available_drivers'
+      get '/drivers/me', to: 'drivers#me', as: 'me'
       get '/vehicles/available', to: 'vehicles#show_available', as: 'show_available_vehicles'
       resources :drivers, defaults: {format: :json} 
       resources :vehicles, defaults: {format: :json} do
