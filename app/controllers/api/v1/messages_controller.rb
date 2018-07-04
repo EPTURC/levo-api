@@ -19,13 +19,26 @@ class Api::V1::MessagesController < ApplicationController
   
   api :POST, "messages", "Create a message"
   def create
-    @message = Message.new(message_params)
 
-    if @message.save
-      render json: @message, status: :created
-    else
-      render json: @message.errors, status: :unprocessable_entity
+    @messages = []
+    @ids = message_params["driver_id"]
+
+    @ids.each do |id|
+      
+      @message = Message.new(
+        "message_text"=>message_params["message_text"],
+        "user_id"=>message_params["user_id"],
+        "driver_id"=>id["ids"])
+      @messages.push(@message)  
+      
+      #if @message.save
+      #  render json: @message, status: :created
+      #else
+      #  render json: @message.errors, status: :unprocessable_entity
+      #end
+    
     end
+    @messages
   end
 
   
