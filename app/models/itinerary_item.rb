@@ -7,7 +7,7 @@ class ItineraryItem < ApplicationRecord
   validates :index, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
   def as_json(options={})
-    super(:only => [:index, :done, :id], :include => { task: { only: [:object, :responsible_name, :type, :local] }})
+    super(:only => [:index, :done, :id, :details, :success], :include => { task: { only: [:object, :responsible_name, :type, :local] }})
   end
 
   def previous_pending_on_itinerary
