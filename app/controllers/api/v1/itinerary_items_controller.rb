@@ -62,6 +62,6 @@ class Api::V1::ItineraryItemsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def itinerary_item_params
-      params.require(:itinerary_item).permit(:itinerary_id, :index, :done, :task_id)
+      params.require(:itinerary_item).permit(:itinerary_id, :index, :done, :task_id, :details, :success)
     end
 end

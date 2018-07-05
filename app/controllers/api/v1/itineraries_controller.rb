@@ -20,17 +20,25 @@ class Api::V1::ItinerariesController < ApplicationController
   end
 
   param_group :itinerary
-  api :GET, "itineraries", "Show all itineraries"
+  api :GET, "itineraries", "Show only active itineraries"
   def index
+    @itineraries = Itinerary.where("status='ativo'") 
+
+    render json: @itineraries.as_json(:methods => [:situation])
+  end
+
+  param_group :itinerary
+  api :GET, "itineraries/all", "Show all itineraries"
+  def all_index
     @itineraries = Itinerary.all
 
-    render json: @itineraries
+    render json: @itineraries.as_json(:methods => [:situation])
   end
 
   param_group :itinerary
   api :GET, "itineraries/:id", "Show a itinerary details with his items included, ordered by index"
   def show
-    render json: @itinerary.as_json(:include => { items: { only: [:id, :task_id, :index, :done] }})
+    render json: @itinerary.as_json(:include => { items: { only: [:id, :task_id, :index, :done] }}, :methods => [:situation])
   end
 
   param_group :itinerary
@@ -71,7 +79,7 @@ class Api::V1::ItinerariesController < ApplicationController
                             { items: { only: [:index, :done, :id], 
                               :include => { task: 
                                 { only: [:object, :responsible_name, :type, :local ]} } }
-                            }])
+                            }], :methods => [:situation])
     else
       render json: '{"error": "not_found"}', status: :not_found
     end
