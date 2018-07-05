@@ -60,8 +60,8 @@ class Api::V1::MessagesController < ApplicationController
     @driver_messages = Message.where("driver_id = ?", params[:driver]).take
     if @driver_messages
       render json:
-        @driver_messages.as_json(only: [:id, :message], :include => [
-          {user: {only: [:id, :name]}}
+        @driver_messages.as_json(only: [:id, :message_text, :created_at], :include => [
+          {user: {only: [:id, :name]}}, {driver: {only: [:id]}}
         ])
     else
       render json: '{"error": "not_found"}', status: :not_found
