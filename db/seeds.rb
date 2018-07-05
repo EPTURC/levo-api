@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+Message.all.destroy_all
 Occurrence.all.destroy_all
 ItineraryItem.all.destroy_all
 Task.all.destroy_all
