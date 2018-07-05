@@ -15,9 +15,11 @@ Rails.application.routes.draw do
       end
       resources :tasks
       resources :occurrences
+      resources :messages
       get '/vehicles/company_id/:company_id', to: 'vehicles#show_by_company_id', as: 'show_by_company_id'
       get '/itineraries/driver/:driver', to: 'itineraries#show_by_driver', as: 'show_by_driver'
       get '/drivers/name/:name', to: 'drivers#show_by_name', as: 'show_by_name'
+      get '/messages/driver/:driver', to: 'messages#select_by_driver', as: 'select_by_driver'
     end
   end
 end
