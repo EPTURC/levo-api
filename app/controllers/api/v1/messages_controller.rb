@@ -32,7 +32,11 @@ class Api::V1::MessagesController < ApplicationController
       errors.push(@message.errors) unless @message.save
     end
 
-    render json: {"success" => new_messages, "errors" => errors}, status: :created if new_messages.any?
+    status = :created if new_messages.length == drivers.length
+    status = :unprocessable_entity if errors.length == drivers.length
+    status = 207 if new_messages.any? && errors.any?
+
+    render json: {"success" => new_messages, "errors" => errors}, status: status 
   end
 
   
