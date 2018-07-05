@@ -19,26 +19,20 @@ class Api::V1::MessagesController < ApplicationController
   
   api :POST, "messages", "Create a message"
   def create
+    new_messages = []
+    errors = []
+    drivers = message_params["driver_id"]
+    message_text = message_params["message_text"]
+    sender = message_params["user_id"]
 
-    @messages = []
-    @ids = message_params["driver_id"]
-
-    @ids.each do |id|
-      
-      @message = Message.new(
-        "message_text"=>message_params["message_text"],
-        "user_id"=>message_params["user_id"],
-        "driver_id"=>id["ids"])
-      @messages.push(@message)  
-      
-      #if @message.save
-      #  render json: @message, status: :created
-      #else
-      #  render json: @message.errors, status: :unprocessable_entity
-      #end
+    drivers.each do |driver|
+      @message = Message.new("message_text"=>message_text, "user_id"=>sender, "driver_id"=> driver)
     
+      new_messages.push(@message) if @message.save
+      errors.push(@message.errors) unless @message.save
     end
-    @messages
+
+    render json: {"success" => new_messages, "errors" => errors}, status: :created if new_messages.any?
   end
 
   
@@ -78,6 +72,6 @@ class Api::V1::MessagesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def message_params 
-      params.require(:message).permit(:message_text, :user_id, driver_id: [:ids])
+      params.require(:message).permit(:message_text, :user_id, :driver_id => [])
     end
 end
