@@ -57,7 +57,7 @@ class Api::V1::MessagesController < ApplicationController
   
   api :GET, "messages/driver/:driver", "Find and show the messages that belong to the driver"
   def select_by_driver
-    @driver_messages = Message.where("driver_id = ?", params[:driver]).take
+    @driver_messages = Message.where("driver_id = ?", params[:driver])
     if @driver_messages
       render json:
         @driver_messages.as_json(only: [:id, :message_text, :created_at], :include => [
